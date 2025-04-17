@@ -1,4 +1,5 @@
 ---
+title: ""
 layout: "default"
 ---
 
@@ -11,11 +12,11 @@ layout: "default"
 Thanks for following the link to my super-special personal website audit that I put together for you.
 
 ### What is this?
-I wanted to convey just how enthusiastic I am about applying for the position of "Software Engineer at Raspberry-Pi". My way of showing this was to present what I'm bringing to the table. Not just technical skills, but enthusiasm and dedication. A willingness to go above and beyond. 
+I wanted to convey just how enthusiastic I am about applying for the position of_Software Engineer at Raspberry-Pi. My way of showing this was to present what I'm bringing to the table. Not just technical skills, but enthusiasm and dedication. A willingness to go above and beyond. 
 
-Whilst doing my research on the job position and the company, I did some digging and dev-sleuthing on the Raspberry-Pi websites. I've created a personal presentation for you based on some of the things I've found.
+Whilst doing my research on the job position and the company, I did some digging and dev-sleuthing on the websites belonging to the Raspberry Pi foundation and LLC. I've created a personal presentation for you based on some of the things I've found.
 
-**Please read:** Before I continue, I would like to state that I never intended to step on anyone's toes with the information I am about to present. It should not be taken as harsh criticism or a judgement of any kind. I believe that the good people already working on the sites at Raspberry-Pi (that I hope to join the ranks of) are doing an incredible job. This audit is just my attempt an enthusiastic attempt to put myself ahead of the competition!
+**Please read:** Before I continue, I would like to state that I never intended to step on anyone's toes with the information I am about to present. It should not be taken as harsh criticism or a judgement of any kind. I believe that the good people already working on the sites at Raspberry-Pi (that I hope to join the ranks of) are doing an incredible job. This audit is just my enthusiastic attempt to put myself ahead of the competition!
 
 ### Nice enthusiasm! That sounds great, so what am I about to read?
 The featured information on this page will be broken down into the following categories:
@@ -80,7 +81,7 @@ Found on https://codeclubworld.org/
 
 **Problem:** Web crawlers won't be able to determine what the primary subject of the page is and will affect indexing/ranking. This also impacts screenreaders that help visually impaired readers to navigate the page
 
-<p align="center"><img src="./images/seo/multiple-h1s.gif" width="450" height="auto"></p>
+<p align="center"><img src="./images/seo/multiple-h1s.gif" width="550" height="auto"></p>
 
 **Solution:** Ensure the primary heading of the page is enclosed within a `<h1/>` tag and that subsequent headings are given tags of the right hierarchical value.
 
