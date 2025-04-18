@@ -1,0 +1,76 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.page-header {
+  background-color: unset;
+  background-image: none;
+  max-width: 64rem;
+  color: #ed9d26;
+  padding-bottom: 0;
+}
+header {
+  margin: auto;
+  .btn {
+    display: none;
+  }
+}
+
+.project-tagline {
+  color: black;
+  border-bottom: solid 0.5rem #ed9d26;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.main-content {
+  a {
+    text-decoration: underline;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #ed9d26;
+  }
+
+  img {
+    border-radius: 0.5rem;
+    filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
+  }
+
+  figcaption {
+    font-size: 0.8rem;
+  }
+
+  hr {
+    height: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  .audit {
+    font-weight: 700;
+    font-size: 2.5rem;
+    text-align: center;
+    border-bottom: solid 0.25rem #ed9d26;
+    max-width: 20rem;
+    margin: 3rem auto;
+    @media screen and (max-width: 42em) {
+      font-size: 1.75rem;
+    }
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+.found {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: darkgray;
+  margin-top: -0.5rem;
+}

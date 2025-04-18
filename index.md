@@ -1,36 +1,31 @@
 ---
-title: ""
-layout: "default"
+title: "👋 Hey There!"
 ---
 
-# Welcome To Henry's Raspberry-Pi Website Audit
+### What am I looking at here? 🤔
+Welcome to Henry's Raspberry-Pi Website Audit! 🕵️
 
-## Introduction
+I’m genuinely excited about applying for the Software Engineer role at Raspberry Pi. To show what I bring—not just technical skills but enthusiasm and dedication—I’ve put together this personal audit as a way of demonstrating my willingness to go above and beyond.
 
-👋 Hi There!
+While researching the role and the company, I used my frontend development experience and deep knowledge of Web Vitals to explore the Raspberry Pi Foundation and LLC websites. This presentation highlights what I observed and some ideas for improvement.
 
-Thanks for following the link to my super-special personal website audit that I put together for you.
+**A quick note:** My intention isn’t to criticize or judge. I have great respect for the talented team already working on these sites. This audit is simply my way of demonstrating passion and going the extra mile to stand out!
 
-### What is this?
-I wanted to convey just how enthusiastic I am about applying for the position of_Software Engineer at Raspberry-Pi. My way of showing this was to present what I'm bringing to the table. Not just technical skills, but enthusiasm and dedication. A willingness to go above and beyond. 
 
-Whilst doing my research on the job position and the company, I did some digging and dev-sleuthing on the websites belonging to the Raspberry Pi foundation and LLC. I've created a personal presentation for you based on some of the things I've found.
-
-**Please read:** Before I continue, I would like to state that I never intended to step on anyone's toes with the information I am about to present. It should not be taken as harsh criticism or a judgement of any kind. I believe that the good people already working on the sites at Raspberry-Pi (that I hope to join the ranks of) are doing an incredible job. This audit is just my enthusiastic attempt to put myself ahead of the competition!
-
-### Nice enthusiasm! That sounds great, so what am I about to read?
+### Love the enthusiasm! How does this work? 
 The featured information on this page will be broken down into the following categories:
-- SEO
+
 - Technical Performance
-- UX
-- Content Quality
+- GDPR
 - Security
+- SEO
+- UX
 
-With each finding I will explain where I found them, present my understanding of the issue, and my own recommended suggestion.
+For each issue I present, I'll explain where I found it, provide context on the problem, and offer a suggested solution.
 
-I'm hopeful that if I'm successful in my application to join the team at Raspberry-Pi, I might get the opportunity to tackle these issues and really put my money where my mouth is!
+If I'm successful in joining the Raspberry Pi team, I'm excited to tackle these challenges and put my ideas into action!
 
-### What's the scope of this audit?
+### What's the scope of this audit? 🔎
 All of the information I've gathered I found by personally inspecting the following domains and some of the related subdomains.
 
 - https://www.raspberrypi.com/
@@ -41,72 +36,189 @@ All of the information I've gathered I found by personally inspecting the follow
 - https://astro-pi.org/
 - https://experience-ai.org/
 
-I understand that some of these domains are operated under the Raspberry-Pi foundation whilst others will be Raspberry-Pi LTD, and will not necessarily have oversight over each other but for the purposes of this demonstration I included them all in a naive attempt to find as many things as I could.
+I understand that some of the domains I reviewed are operated by the Raspberry Pi Foundation, while others belong to Raspberry Pi Ltd. These entities operate independently and don’t necessarily have oversight over each other. However, for the purpose of this audit, I included all related websites in a broad, exploratory effort to identify as many opportunities for improvement as possible.
 
 ### Before we begin...
 
-I'd like to say that I think the websites built and operated by the teams at Raspberry-Pi are incredible examples of clean, well crafted and carefully considered web design. Every page I encountered was a gleaming example of great HTML semantics, structure, accessibility practices, and SEO design. I had to look long and hard to find anything at all that I could even consider a potential bug/issue that needed fixing. So firstly everyone involved deserves a round of applause!
+I want to acknowledge the impressive work done by the teams at Raspberry Pi. Their websites are exemplary models of clean design, solid HTML structure, accessibility, and SEO practices. Every page I visited showcased great attention to detail, making it a challenge to find areas for improvement. Kudos to everyone involved!
 
-Saying that, I had to write about something here so let's get started!
+Of course, I needed to identify some points for discussion, so let’s dive in!
 
-## Audit
+---
 
-### 1. SEO
+<h2 class="audit" id="audit">The Audit</h2>
+
+As I delve into this audit, I want to acknowledge the complexity of managing a diverse range of websites, from storefronts to blogs and educational platforms. Each decision behind their development likely has its rationale, which I may not be aware of from my external perspective.
+
+The following points are based on a surface-level examination and should be viewed as a demonstration of my skills rather than a critique. My goal is to provide constructive insights, not to imply any shortcomings in the current setup.
+
+## 1. Technical Performance ⚙️
+
+First off, let me just say: Wow! The average Lighthouse scores across most of the sites I reviewed were truly impressive—mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.
+
+
+The data I used comes from two sources. First, I ran lab-based audits using Chrome Lighthouse. I’m aware that Lighthouse lab data can sometimes give a skewed view of real-world performance since it simulates conditions in a controlled environment. To balance that, I also analyzed anonymous user experience data from Google’s Chrome User Experience Report [(CrUX)](https://developer.chrome.com/docs/crux), which reflects real user metrics collected from millions of Chrome users in the wild.
+
+
+### Large Resources Blocking Render Time
+
+<p class="found">Discovered on: https://projects.raspberrypi.org/en</p>
+
+
+<figure align="center"><img src="./images/performance/score.png" width="400" height="auto"><figcaption>Uh-oh!</figcaption></figure>
+
+**Problem:**  
+Large resources requested during page load can block the browser from rendering visible content until fully downloaded, parsed, and executed. On the landing page for [projects.raspberrypi.org](https://projects.raspberrypi.org), one of the earliest loaded resources is:
+
+`https://editor-static.raspberrypi.org/releases/v0.28.14/web-component.js`
+
+According to the Lighthouse Treemap tool, this file is a massive **18 MB**—a size that can significantly delay page rendering.
+
+#### What is this file?
+
+My research led to me the conclusion that this script is the Raspberry Pi Code Editor web component, as detailed in the [editor-ui GitHub repository](https://github.com/RaspberryPiFoundation/editor-ui). providing a modular, embeddable code editor that other sites can integrate using the `<editor-wc>` custom element.
+
+<figure align="center"><img src="./images/performance/treemap.png" width="550" height="auto"><figcaption>18mb Resource</figcaption></figure>
+
+
+What I noticed was that the resource is loaded on every page, including the landing page, regardless of a need for the editor or not. On a lot of modern, powerful devices with good internet speeds the loading time for the page may be negligible, but this could really impact the user experience for someone using an older / inexperienced device. Considering that this is a primary website for education it would be a huge shame for any user to be disadvantaged by painfully slow rendering times!
+
+**Solution:**  
+Without full insight into the component's inner workings, I can only offer assumption-based suggestions to improve resource loading, assuming optimizations aren't already in place:
+
+1. **Defer loading** by lazy-loading the script only when absolutely necessary. This can significantly reduce initial page render time. If the script isn’t critical for first render, simply adding the `async` or `defer` attributes to the `<script>` tag can help, as explained in the [Chrome Developer Docs](https://developer.chrome.com/docs/lighthouse/performance/render-blocking-resources/?utm_source=lighthouse&utm_medium=devtools#how_to_eliminate_render-blocking_scripts).
+
+2. **Code-splitting:** Given the file's large size, splitting it into smaller chunks that load on demand can greatly improve performance.
+
+3. **Proper caching:** Ensure the file is cached effectively to avoid impacting repeat page loads. While inspecting the network request, I noticed the file size drops to just 149 bytes on subsequent loads, indicating caching is working well—nice!
+
+4. **Optimize work on the main thread:**  
+   Break long tasks into smaller chunks, use Web Workers for background processing, and use optimized code patterns like  async/await, callbacks and promises to avoid blocking the main thread. 
+
+In general, it's best to minimize blocking code, especially external scripts. For smaller scripts, inlining the code directly into the page can avoid extra network requests altogether.
+
+<figure align="center"><img src="./images/performance/blocking-optimal.png" width="450" height="auto"><figcaption>Performance under optimal conditions</figcaption></figure>
+
+
+Investigating the `Performance` panel in Chrome DevTools reveals the direct impact of the large `web-component.js` on render and code execution time. The call stack shows this script blocking other scripts for a total of **270ms**. While this may seem minor, it’s measured under optimal conditions and can be worse in real-world scenarios.
+
+<figure align="center"><img src="./images/performance/blocking-throttled.png" width="450" height="auto"><figcaption>Performance under throttled conditions</figcaption></figure>
+
+If I set the CPU throttling option to 4x, it takes a whole 1.17 seconds just for this one large script!  
+
+### Largest Contentful Paint (LCP)
+
+<p class="found">Discovered on: https://projects.raspberrypi.org/en</p>
+
+**Problem:** 
+Inspecting the CrUX report for March 2025 reveals insights into three key Web Vitals metrics that impact SEO performance and visibility.
+
+- CLS and INP Performance: Both metrics are performing well, which is great!
+
+- LCP Performance: Unfortunately, the LCP score tells a different story. Only 50% of users experience what Chrome considers a "good" score. For mobile users, the situation is even worse. Low LCP scores indicate that main content takes too long to become visible, leading to frustration, reduced engagement, and higher bounce rates.
+
+<figure align="center"><img src="./images/performance/lcp-crux.png" width="450" height="auto"><figcaption>Core Web Vitals scores</figcaption></figure>
+
+A pretty cool new feature offered by the CrUX dashboard is a useful visual graph for Web Vital trends.
+
+<figure align="center"><img src="./images/performance/core-web-vitals.png" width="450" height="auto"><figcaption>CrUX Score Visual Graph</figcaption></figure>
+
+This graph shows an upward trend in LCP scores over the past year. Notably, in February this year, 75% of Chrome users experienced an LCP wait time of nearly 6 seconds on average.
+
+#### Okay, Okay, enough about the problem, what's the solution here?
+
+**Solution:** 
+While it is a tricky challenge for me to pinpoint the exact cause without more details, here are some general recommendations I can offer:
+
+1. **Reduce Network Request Payloads:**
+Minimize large network requests, as previously discussed.
+
+2. **Optimize Image Formats:**
+Switching to modern formats like WebP can significantly reduce image file sizes. The projects site currently uses PNGs, but Lighthouse suggests that using WebP could save up to 1/3rd on image requests due to its higher compression efficiency.
+
+<figure align="center"><img src="./images/performance/webp.png" width="450" height="auto"><figcaption>Image Size Savings Prediction</figcaption></figure>
+
+3. **Preload Critical Resources:**  
+   Use the `rel="preload"` attribute on `<link>` tags in the page `<head>` to prioritize loading of resources that affect above-the-fold content. I noticed this was only applied to Google Fonts, so expanding its use to other key assets could improve LCP.
+
+4. **Ensure LCP Resources Are Discoverable in HTML:**  
+   If images or other key elements are dynamically added or lazily loaded via JavaScript, it can hurt LCP scores. Resources loaded externally are prime candidates for `rel="preload"` to help the browser prioritize them early.
+
+5. **Leveraging a Content Delivery Network (CDN):**  
+   Using a CDN helps distribute content globally, reducing latency and speeding up resource delivery. I assume this is already in place, but it’s worth confirming.
+
+## 2. GDPR & Security 🔐
+
+WORK IN PROGRESS (Please check again later, I'm still updating this page!)
+
+## 3. SEO 🔎 🕸️
 
 For this section I used the [SiteOne Crawler Report tool](https://crawler.siteone.io/), [Screaming Frog SEO Spider](https://www.screamingfrog.co.uk/seo-spider/), Chrome Lighthouse reports as well as manually inspecting the pages.
 
-Overall I found most sites had exemplary scores on SEO performance. Across the board most sites scored 100 with Lighthouse! The only issues I picked up are mostly minor. It might seem a bit nit-picky, but I wanted to include them to show the degree of detail that I pay attention to. 
+Overall, the sites scored exceptionally well on SEO, with most achieving perfect 100s in Lighthouse! The issues I found were generally minor, whilst it may seem overly judicious to include them, I decided to nonetheless to demonstrate my attention to detail.
 
 <p style="font-size: 24px; font-weight: bold"> Henry's Score: 9/10 </p>
 
-##### Missing H1 Tag
-Found on https://projects.raspberrypi.org/en
+### Missing H1 Tag
+<p class="found">Discovered on: https://projects.raspberrypi.org/en</p>
 
-**Problem:** H1 tags signify the primary topic of a page to search engines. As this is the landing page for this site it will have a negative impact on how the page is indexed and ranked. Whilst modern search engines can mostly mitigate this issue, it's a best practice to ensure only one H1 tag is in place per page.
-<p align="center"><img src="./images/seo/missing-h1.png" width="450" height="auto"></p>
+**Problem:**  
+H1 tags are crucial for signaling the primary topic of a page to search engines. On this landing page, the absence of an H1 tag could negatively impact indexing and ranking. Although modern search engines can somewhat mitigate this issue, best practices recommend having only one H1 tag per page to clearly define the page's main heading.
 
-**Solution:** Replace the `<p/>` tag with the class "page-section__title" with a `<h1/>` tag
+<figure align="center"><img src="./images/seo/missing-h1.png" width="450" height="auto"><figcaption>Missing H1 Tag</figcaption></figure>
 
-**Bonus:** The screamingfrog seo crawler results showed that the raspberrypi.org blog has occurrences of multiple H1 tags on every blog article it found.
+**Solution:**  
+Replace the `<p>` tag with the class "page-section__title" with an `<h1>` tag. This ensures that the page has a clear, semantically correct main heading, enhancing SEO and accessibility.
 
-<p align="center"><img src="./images/seo/blog-h1s.png" width="450" height="auto"></p>
+### Multiple H1 Tags
+<p class="found">Discovered on: https://codeclubworld.org/</p>
 
-When inspecting the page it appears that the blog page container has it's own sub-header with the text "Blog". As this is set to `<h1/>` tag it conflicts with the heading on each article. My personal recommendation would be to change the sub-header to a tag with less hierarchical value. 
+**Problem:**  
+Having multiple `<h1>` tags on a single page can confuse search engines about the page’s primary topic, potentially diluting SEO value. It can also impact accessibility, making it harder for screen readers to navigate and understand the content hierarchy.
 
-<p align="center"><img src="./images/seo/blog-h1s.gif" width="450" height="auto"></p>
+**Context:**
+Whilst Google has clarified that having multiple `<h1>` tags does not inherently harm SEO, it is still considered best practice to use a **single `<h1>`** per page. 
+
+<figure align="center"><img src="./images/seo/multiple-h1s.gif" width="550" height="auto"><figcaption>Multiple H1s</figcaption></figure>
+
+**Solution:**
+Ensure the primary heading of each page is enclosed within a single `<h1>` tag, with subsequent headings using the appropriate hierarchical tags (`<h2>`, `<h3>`, etc.) to maintain clear structure.
+
+**Bonus:** 
+The Screaming Frog SEO Spider crawl revealed that the raspberrypi.org blog articles frequently contain multiple `<h1>` tags per post.
+
+<figure align="center"><img src="./images/seo/blog-h1s.png" width="450" height="auto"><figcaption>Multiple H1s On Every Page</figcaption></figure>
+
+On the blog page, the container has its own sub-header with the text "Blog" set as an `<h1>` tag. This conflicts with the `<h1>` tags used for individual blog article titles, creating multiple top-level headings on the same page. My personal recommendation would be to change the sub-header to a tag with less hierarchical value.
+
+<figure align="center"><img src="./images/seo/blog-h1s.gif" width="450" height="auto"><figcaption>Blog H1s</figcaption></figure>
 
 
-##### Multiple H1 Tags
-Found on https://codeclubworld.org/
+### Missing Meta Description
+<p class="found">Discovered on: https://codeclub.org/en</p>
 
-**Problem:** Web crawlers won't be able to determine what the primary subject of the page is and will affect indexing/ranking. This also impacts screenreaders that help visually impaired readers to navigate the page
+**Problem:** 
+The only description meta tag on this page is the Open Graph tag `og:description`, which is used by social media platforms like Facebook and LinkedIn to display page summaries when shared. While necessary, this tag serves a different purpose than the standard `name="description"` meta tag, which search engines use for indexing and displaying snippets in search results.
 
-<p align="center"><img src="./images/seo/multiple-h1s.gif" width="550" height="auto"></p>
-
-**Solution:** Ensure the primary heading of the page is enclosed within a `<h1/>` tag and that subsequent headings are given tags of the right hierarchical value.
-
-##### Missing Meta Description
-Found on https://codeclub.org/en
-
-**Problem:** The only description `Meta` tag on this page targets the OpenGraph protocol `og:description`. This tag would be used for page summaries on social media platforms such as Facebook, LinkedIn etc. Whilst it is necessary, it serves a different purpose to the regular `name="description"` Meta tag, which will be used by search engines.
 
 ```html
 <meta content="We believe in learning through making, and Code Clubs use our free coding projects and resources to offer young people plenty of opportunities to be creative, learn a new skill and connect with others." property="og:description">
 ```
 
-**Solution:** Simply duplicate the tag in the head and change `property="og:description"` to `name="description"`. Like so:
+**Solution:** 
+Add a standard meta description tag alongside the Open Graph tag by duplicating it and changing property="og:description" to name="description". For example:
 
 ```html
 <meta name="description" content="We believe in learning through making, and Code Clubs use our free coding projects and resources to offer young people plenty of opportunities to be creative, learn a new skill and connect with others.">
 ```
 
-##### Non Descriptive Link Texts
+### Non Descriptive Link Texts
 
-Found on https://codeclub.org/en
+<p class="found">Discovered on: https://codeclub.org/en</p>
 
 **Problem:** The [Google Dev Docs](https://developer.chrome.com/docs/lighthouse/seo/link-text/?utm_source=lighthouse&utm_medium=devtools) outline the issue in detail. Put simply, when the displayed text inside of a link isn't descriptive, both users & search engines won't necessarily understand the relation between the pages being linked.
 
-<p align="center"><img src="./images/seo/nondescriptive-link-texts.png" width="450" height="auto"></p>
+<figure align="center"><img src="./images/seo/nondescriptive-link-texts.png" width="450" height="auto"><figcaption>Read More Links</figcaption></figure>
 
 **Solution:** This task may require some tweaking depending on how the articles are titled, but the fix is simple: include some relevant information in the link description like so:
 
@@ -115,3 +227,6 @@ Found on https://codeclub.org/en
 ```
 
 
+## 4. UX 👥
+
+WORK IN PROGRESS (Please check again later, I'm still updating this page!)
