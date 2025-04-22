@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="/assets/css/style.css?v=d1712df9c15054523c3e8c0c6976de6baa63d844">
+    <link rel="stylesheet" href="/assets/css/style.css?v=f948a7a15144e718477f91796973e198c6ba17db">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
@@ -44,17 +44,27 @@
     <header class="page-header" role="banner">
       <h1 class="project-name">👋 Hey There!</h1>
       <h2 class="project-tagline">Welcome, and thanks for following the link!</h2>
-      
-        <a href="https://github.com/HJEC/r-pi-application" class="btn">View on GitHub</a>
-      
-      
+      <div class="social-links">
+        <a href="https://github.com/hjec" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=62856&format=png&color=ed9d26" alt="GitHub" style="width: 25px; height: 25px;">
+        </a>
+        <a href="https://www.linkedin.com/in/henry-crookes/" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=98960&format=png&color=ed9d26" alt="LinkedIn" style="width: 25px; height: 25px;">
+        </a>
+        <a href="mailto:henryjecrookes@gmail.com" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=60688&format=png&color=ed9d26" alt="Email" style="width: 25px; height: 25px;">
+        </a>
+        <a href="tel:+447415341349" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=9730&format=png&color=ed9d26" alt="Phone" style="width: 25px; height: 25px;">
+        </a>
+        </div>
     </header>
 
     <main id="content" class="main-content" role="main">
       <h3 id="what-am-i-looking-at-here-">What am I looking at here? 🤔</h3>
 <p>Welcome to Henry’s Raspberry-Pi Website Audit! 🕵️</p>
 
-<p>I’m genuinely excited about applying for the Software Engineer role at Raspberry Pi. To show what I bring—not just technical skills but enthusiasm and dedication—I’ve put together this personal audit as a way of demonstrating my willingness to go above and beyond.</p>
+<p>I’m genuinely excited about applying for the Software Engineer role at Raspberry Pi. To show what I bring, not just technical skills but enthusiasm and dedication, I’ve put together this personal audit as a way of demonstrating my willingness to go above and beyond.</p>
 
 <p>While researching the role and the company, I used my frontend development experience and deep knowledge of Web Vitals to explore the Raspberry Pi Foundation and LLC websites. This presentation highlights what I observed and some ideas for improvement.</p>
 
@@ -106,7 +116,7 @@
 
 <h2 id="1-technical-performance-️">1. Technical Performance ⚙️</h2>
 
-<p>First off, let me just say: Wow! The average Lighthouse scores across most of the sites I reviewed were truly impressive—mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.</p>
+<p>First off, let me just say: Wow! The average Lighthouse scores across most of the sites I reviewed were truly impressive, mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.</p>
 
 <p>The data I used comes from two sources. First, I ran lab-based audits using Chrome Lighthouse. I’m aware that Lighthouse lab data can sometimes give a skewed view of real-world performance since it simulates conditions in a controlled environment. To balance that, I also analyzed anonymous user experience data from Google’s Chrome User Experience Report <a href="https://developer.chrome.com/docs/crux">(CrUX)</a>, which reflects real user metrics collected from millions of Chrome users in the wild.</p>
 
@@ -121,7 +131,7 @@ Large resources requested during page load can block the browser from rendering 
 
 <p><code class="language-plaintext highlighter-rouge">https://editor-static.raspberrypi.org/releases/v0.28.14/web-component.js</code></p>
 
-<p>According to the Lighthouse Treemap tool, this file is a massive <strong>18 MB</strong>—a size that can significantly delay page rendering.</p>
+<p>According to the Lighthouse Treemap tool, this file is a massive <strong>18 MB</strong>, a size that can significantly delay page rendering.</p>
 
 <h4 id="what-is-this-file">What is this file?</h4>
 
@@ -142,7 +152,7 @@ Without full insight into the component’s inner workings, I can only offer ass
     <p><strong>Code-splitting:</strong> Given the file’s large size, splitting it into smaller chunks that load on demand can greatly improve performance.</p>
   </li>
   <li>
-    <p><strong>Proper caching:</strong> Ensure the file is cached effectively to avoid impacting repeat page loads. While inspecting the network request, I noticed the file size drops to just 149 bytes on subsequent loads, indicating caching is working well—nice!</p>
+    <p><strong>Proper caching:</strong> Ensure the file is cached effectively to avoid impacting repeat page loads. While inspecting the network request, I noticed the file size drops to just 149 bytes on subsequent loads, indicating caching is working well, nice!</p>
   </li>
   <li>
     <p><strong>Optimize work on the main thread:</strong><br />
@@ -219,7 +229,13 @@ Using a CDN helps distribute content globally, reducing latency and speeding up 
 
 <h2 id="2-gdpr--security-">2. GDPR &amp; Security 🔐</h2>
 
-<p>WORK IN PROGRESS (Please check again later, I’m still updating this page!)</p>
+<p>For this task I used the  <a href="https://www.edpb.europa.eu/our-work-tools/our-documents/support-pool-expert-projects/edpb-website-auditing-tool_en">EDPB Website auditing tool</a>,</p>
+
+<p>In the spirit of full transparency, GDPR is a topic that I am very familiar with from my last position so I understand how crucial it is to be on the right side of these changes in digital privacy law. I also understand that every region, including the UK has a different take on GDPR as well as how costly &amp; time consuming it is to adhere to new regulations thus why a lot of websites aren’t always quick to adopt new changes.</p>
+
+<p>That being said, I personally think that protecting the rights &amp; privacy of users is the most paramount of issues and any infraction on them should have the highest priority in order to avoid expensive legal fines!</p>
+
+<h3 id="sending-analytics-requests-before-consent">Sending Analytics Requests Before Consent</h3>
 
 <h2 id="3-seo--️">3. SEO 🔎 🕸️</h2>
 
@@ -296,12 +312,6 @@ Add a standard meta description tag alongside the Open Graph tag by duplicating 
 <p>WORK IN PROGRESS (Please check again later, I’m still updating this page!)</p>
 
 
-      <footer class="site-footer">
-        
-          <span class="site-footer-owner"><a href="https://github.com/HJEC/r-pi-application">r-pi-application</a> is maintained by <a href="https://github.com/HJEC">HJEC</a>.</span>
-        
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
-      </footer>
     </main>
   </body>
 </html>

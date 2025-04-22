@@ -8,7 +8,8 @@
   background-image: none;
   max-width: 64rem;
   color: #ed9d26;
-  padding-bottom: 0;
+  padding-bottom: 1rem;
+  border-bottom: solid 0.5rem #ed9d26;
 }
 header {
   margin: auto;
@@ -19,12 +20,12 @@ header {
 
 .project-tagline {
   color: black;
-  border-bottom: solid 0.5rem #ed9d26;
-  padding-bottom: 1.5rem;
-  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0rem;
 }
 
 .main-content {
+
   a {
     text-decoration: underline;
   }
@@ -63,9 +64,6 @@ header {
     }
   }
 
-  footer {
-    display: none;
-  }
 }
 
 .found {
@@ -73,4 +71,16 @@ header {
   font-weight: bold;
   color: darkgray;
   margin-top: -0.5rem;
+}
+
+.social-links {
+  // margin-top: -1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  img {
+    filter: none;
+  }
 }

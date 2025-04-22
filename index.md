@@ -2,14 +2,16 @@
 title: "👋 Hey There!"
 ---
 
+
+
 ### What am I looking at here? 🤔
 Welcome to Henry's Raspberry-Pi Website Audit! 🕵️
 
-I’m genuinely excited about applying for the Software Engineer role at Raspberry Pi. To show what I bring—not just technical skills but enthusiasm and dedication—I’ve put together this personal audit as a way of demonstrating my willingness to go above and beyond.
+I'm genuinely excited about applying for the Software Engineer role at Raspberry Pi. To show what I bring, not just technical skills but enthusiasm and dedication, I've put together this personal audit as a way of demonstrating my willingness to go above and beyond.
 
 While researching the role and the company, I used my frontend development experience and deep knowledge of Web Vitals to explore the Raspberry Pi Foundation and LLC websites. This presentation highlights what I observed and some ideas for improvement.
 
-**A quick note:** My intention isn’t to criticize or judge. I have great respect for the talented team already working on these sites. This audit is simply my way of demonstrating passion and going the extra mile to stand out!
+**A quick note:** My intention isn't to criticize or judge. I have great respect for the talented team already working on these sites. This audit is simply my way of demonstrating passion and going the extra mile to stand out!
 
 
 ### Love the enthusiasm! How does this work? 
@@ -36,13 +38,13 @@ All of the information I've gathered I found by personally inspecting the follow
 - https://astro-pi.org/
 - https://experience-ai.org/
 
-I understand that some of the domains I reviewed are operated by the Raspberry Pi Foundation, while others belong to Raspberry Pi Ltd. These entities operate independently and don’t necessarily have oversight over each other. However, for the purpose of this audit, I included all related websites in a broad, exploratory effort to identify as many opportunities for improvement as possible.
+I understand that some of the domains I reviewed are operated by the Raspberry Pi Foundation, while others belong to Raspberry Pi Ltd. These entities operate independently and don't necessarily have oversight over each other. However, for the purpose of this audit, I included all related websites in a broad, exploratory effort to identify as many opportunities for improvement as possible.
 
 ### Before we begin...
 
 I want to acknowledge the impressive work done by the teams at Raspberry Pi. Their websites are exemplary models of clean design, solid HTML structure, accessibility, and SEO practices. Every page I visited showcased great attention to detail, making it a challenge to find areas for improvement. Kudos to everyone involved!
 
-Of course, I needed to identify some points for discussion, so let’s dive in!
+Of course, I needed to identify some points for discussion, so let's dive in!
 
 ---
 
@@ -54,10 +56,10 @@ The following points are based on a surface-level examination and should be view
 
 ## 1. Technical Performance ⚙️
 
-First off, let me just say: Wow! The average Lighthouse scores across most of the sites I reviewed were truly impressive—mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.
+First off, let me just say: Wow! The average Lighthouse scores across most of the sites I reviewed were truly impressive, mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.
 
 
-The data I used comes from two sources. First, I ran lab-based audits using Chrome Lighthouse. I’m aware that Lighthouse lab data can sometimes give a skewed view of real-world performance since it simulates conditions in a controlled environment. To balance that, I also analyzed anonymous user experience data from Google’s Chrome User Experience Report [(CrUX)](https://developer.chrome.com/docs/crux), which reflects real user metrics collected from millions of Chrome users in the wild.
+The data I used comes from two sources. First, I ran lab-based audits using Chrome Lighthouse. I'm aware that Lighthouse lab data can sometimes give a skewed view of real-world performance since it simulates conditions in a controlled environment. To balance that, I also analyzed anonymous user experience data from Google's Chrome User Experience Report [(CrUX)](https://developer.chrome.com/docs/crux), which reflects real user metrics collected from millions of Chrome users in the wild.
 
 
 ### Large Resources Blocking Render Time
@@ -72,7 +74,7 @@ Large resources requested during page load can block the browser from rendering 
 
 `https://editor-static.raspberrypi.org/releases/v0.28.14/web-component.js`
 
-According to the Lighthouse Treemap tool, this file is a massive **18 MB**—a size that can significantly delay page rendering.
+According to the Lighthouse Treemap tool, this file is a massive **18 MB**, a size that can significantly delay page rendering.
 
 #### What is this file?
 
@@ -86,11 +88,11 @@ What I noticed was that the resource is loaded on every page, including the land
 **Solution:**  
 Without full insight into the component's inner workings, I can only offer assumption-based suggestions to improve resource loading, assuming optimizations aren't already in place:
 
-1. **Defer loading** by lazy-loading the script only when absolutely necessary. This can significantly reduce initial page render time. If the script isn’t critical for first render, simply adding the `async` or `defer` attributes to the `<script>` tag can help, as explained in the [Chrome Developer Docs](https://developer.chrome.com/docs/lighthouse/performance/render-blocking-resources/?utm_source=lighthouse&utm_medium=devtools#how_to_eliminate_render-blocking_scripts).
+1. **Defer loading** by lazy-loading the script only when absolutely necessary. This can significantly reduce initial page render time. If the script isn't critical for first render, simply adding the `async` or `defer` attributes to the `<script>` tag can help, as explained in the [Chrome Developer Docs](https://developer.chrome.com/docs/lighthouse/performance/render-blocking-resources/?utm_source=lighthouse&utm_medium=devtools#how_to_eliminate_render-blocking_scripts).
 
 2. **Code-splitting:** Given the file's large size, splitting it into smaller chunks that load on demand can greatly improve performance.
 
-3. **Proper caching:** Ensure the file is cached effectively to avoid impacting repeat page loads. While inspecting the network request, I noticed the file size drops to just 149 bytes on subsequent loads, indicating caching is working well—nice!
+3. **Proper caching:** Ensure the file is cached effectively to avoid impacting repeat page loads. While inspecting the network request, I noticed the file size drops to just 149 bytes on subsequent loads, indicating caching is working well, nice!
 
 4. **Optimize work on the main thread:**  
    Break long tasks into smaller chunks, use Web Workers for background processing, and use optimized code patterns like  async/await, callbacks and promises to avoid blocking the main thread. 
@@ -100,7 +102,7 @@ In general, it's best to minimize blocking code, especially external scripts. Fo
 <figure align="center"><img src="./images/performance/blocking-optimal.png" width="450" height="auto"><figcaption>Performance under optimal conditions</figcaption></figure>
 
 
-Investigating the `Performance` panel in Chrome DevTools reveals the direct impact of the large `web-component.js` on render and code execution time. The call stack shows this script blocking other scripts for a total of **270ms**. While this may seem minor, it’s measured under optimal conditions and can be worse in real-world scenarios.
+Investigating the `Performance` panel in Chrome DevTools reveals the direct impact of the large `web-component.js` on render and code execution time. The call stack shows this script blocking other scripts for a total of **270ms**. While this may seem minor, it's measured under optimal conditions and can be worse in real-world scenarios.
 
 <figure align="center"><img src="./images/performance/blocking-throttled.png" width="450" height="auto"><figcaption>Performance under throttled conditions</figcaption></figure>
 
@@ -145,11 +147,18 @@ Switching to modern formats like WebP can significantly reduce image file sizes.
    If images or other key elements are dynamically added or lazily loaded via JavaScript, it can hurt LCP scores. Resources loaded externally are prime candidates for `rel="preload"` to help the browser prioritize them early.
 
 5. **Leveraging a Content Delivery Network (CDN):**  
-   Using a CDN helps distribute content globally, reducing latency and speeding up resource delivery. I assume this is already in place, but it’s worth confirming.
+   Using a CDN helps distribute content globally, reducing latency and speeding up resource delivery. I assume this is already in place, but it's worth confirming.
 
 ## 2. GDPR & Security 🔐
 
-WORK IN PROGRESS (Please check again later, I'm still updating this page!)
+For this task I used the  [EDPB Website auditing tool](https://www.edpb.europa.eu/our-work-tools/our-documents/support-pool-expert-projects/edpb-website-auditing-tool_en), 
+
+In the spirit of full transparency, GDPR is a topic that I am very familiar with from my last position so I understand how crucial it is to be on the right side of these changes in digital privacy law. I also understand that every region, including the UK has a different take on GDPR as well as how costly & time consuming it is to adhere to new regulations thus why a lot of websites aren't always quick to adopt new changes.
+
+That being said, I personally think that protecting the rights & privacy of users is the most paramount of issues and any infraction on them should have the highest priority in order to avoid expensive legal fines!
+
+
+### Sending Analytics Requests Before Consent
 
 ## 3. SEO 🔎 🕸️
 
@@ -174,7 +183,7 @@ Replace the `<p>` tag with the class "page-section__title" with an `<h1>` tag. T
 <p class="found">Discovered on: https://codeclubworld.org/</p>
 
 **Problem:**  
-Having multiple `<h1>` tags on a single page can confuse search engines about the page’s primary topic, potentially diluting SEO value. It can also impact accessibility, making it harder for screen readers to navigate and understand the content hierarchy.
+Having multiple `<h1>` tags on a single page can confuse search engines about the page's primary topic, potentially diluting SEO value. It can also impact accessibility, making it harder for screen readers to navigate and understand the content hierarchy.
 
 **Context:**
 Whilst Google has clarified that having multiple `<h1>` tags does not inherently harm SEO, it is still considered best practice to use a **single `<h1>`** per page. 
