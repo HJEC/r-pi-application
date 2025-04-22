@@ -62,15 +62,19 @@
 
     <main id="content" class="main-content" role="main">
       <h3 id="what-am-i-looking-at-here-">What am I looking at here? 🤔</h3>
+
 <p>Welcome to Henry’s Raspberry-Pi Website Audit! 🕵️</p>
 
 <p>I’m genuinely excited about applying for the Software Engineer role at Raspberry Pi. To show what I bring, not just technical skills but enthusiasm and dedication, I’ve put together this personal audit as a way of demonstrating my willingness to go above and beyond.</p>
 
-<p>While researching the role and the company, I used my frontend development experience and deep knowledge of Web Vitals to explore the Raspberry Pi Foundation and LLC websites. This presentation highlights what I observed and some ideas for improvement.</p>
+<p>While researching the role and the company, I used my frontend development experience and deep knowledge of Web Vitals to explore the Raspberry Pi Foundation and LLC websites. This presentation highlights some of the things I observed and my ideas on how improvements could be made.</p>
 
-<p><strong>A quick note:</strong> My intention isn’t to criticize or judge. I have great respect for the talented team already working on these sites. This audit is simply my way of demonstrating passion and going the extra mile to stand out!</p>
+<p>This audit is by no means an extensive list of bugs/issues, but just a few of the higher priority issues I found over a few hours of research.</p>
+
+<p><strong>A quick note:</strong> My intention isn’t to criticize or judge. I have the utmost respect for the talented team already working on these sites. This audit is simply my way of demonstrating my passion and going the extra mile to make my application stand out!</p>
 
 <h3 id="love-the-enthusiasm-how-does-this-work">Love the enthusiasm! How does this work?</h3>
+
 <p>The featured information on this page will be broken down into the following categories:</p>
 
 <ul>
@@ -86,6 +90,7 @@
 <p>If I’m successful in joining the Raspberry Pi team, I’m excited to tackle these challenges and put my ideas into action!</p>
 
 <h3 id="whats-the-scope-of-this-audit-">What’s the scope of this audit? 🔎</h3>
+
 <p>All of the information I’ve gathered I found by personally inspecting the following domains and some of the related subdomains.</p>
 
 <ul>
@@ -110,7 +115,7 @@
 
 <h2 class="audit" id="audit">The Audit</h2>
 
-<p>As I delve into this audit, I want to acknowledge the complexity of managing a diverse range of websites, from storefronts to blogs and educational platforms. Each decision behind their development likely has its rationale, which I may not be aware of from my external perspective.</p>
+<p>Before we delve into this audit, I would like to express that I am aware of the complexity of managing a diverse range of websites, from storefronts to blogs and educational platforms. Each decision behind their development likely has its rationale, which I may not be aware of from my external perspective.</p>
 
 <p>The following points are based on a surface-level examination and should be viewed as a demonstration of my skills rather than a critique. My goal is to provide constructive insights, not to imply any shortcomings in the current setup.</p>
 
@@ -156,7 +161,7 @@ Without full insight into the component’s inner workings, I can only offer ass
   </li>
   <li>
     <p><strong>Optimize work on the main thread:</strong><br />
-Break long tasks into smaller chunks, use Web Workers for background processing, and use optimized code patterns like  async/await, callbacks and promises to avoid blocking the main thread.</p>
+Break long tasks into smaller chunks, use Web Workers for background processing, and use optimized code patterns like async/await, callbacks and promises to avoid blocking the main thread.</p>
   </li>
 </ol>
 
@@ -174,7 +179,7 @@ Break long tasks into smaller chunks, use Web Workers for background processing,
 
 <p class="found">Discovered on: https://projects.raspberrypi.org/en</p>
 
-<p><strong>Problem:</strong> 
+<p><strong>Problem:</strong>
 Inspecting the CrUX report for March 2025 reveals insights into three key Web Vitals metrics that impact SEO performance and visibility.</p>
 
 <ul>
@@ -196,7 +201,7 @@ Inspecting the CrUX report for March 2025 reveals insights into three key Web Vi
 
 <h4 id="okay-okay-enough-about-the-problem-whats-the-solution-here">Okay, Okay, enough about the problem, what’s the solution here?</h4>
 
-<p><strong>Solution:</strong> 
+<p><strong>Solution:</strong>
 While it is a tricky challenge for me to pinpoint the exact cause without more details, here are some general recommendations I can offer:</p>
 
 <ol>
@@ -227,25 +232,95 @@ Using a CDN helps distribute content globally, reducing latency and speeding up 
   </li>
 </ol>
 
-<h2 id="2-gdpr--security-">2. GDPR &amp; Security 🔐</h2>
+<h2 id="2-gdpr">2. GDPR</h2>
 
-<p>For this task I used the  <a href="https://www.edpb.europa.eu/our-work-tools/our-documents/support-pool-expert-projects/edpb-website-auditing-tool_en">EDPB Website auditing tool</a>,</p>
+<p>For this task I used the <a href="https://www.edpb.europa.eu/our-work-tools/our-documents/support-pool-expert-projects/edpb-website-auditing-tool_en">EDPB Website auditing tool</a>,</p>
 
-<p>In the spirit of full transparency, GDPR is a topic that I am very familiar with from my last position so I understand how crucial it is to be on the right side of these changes in digital privacy law. I also understand that every region, including the UK has a different take on GDPR as well as how costly &amp; time consuming it is to adhere to new regulations thus why a lot of websites aren’t always quick to adopt new changes.</p>
+<p>In the spirit of full transparency, GDPR is a topic that I am very familiar with in my previous positions so I understand how crucial it is to be on the right side of these changes in digital privacy law. I also understand that every region, including the UK has a different take on GDPR as well as how costly &amp; time consuming it is to adhere to new regulations thus why a lot of websites aren’t always quick to adopt new changes.</p>
 
 <p>That being said, I personally think that protecting the rights &amp; privacy of users is the most paramount of issues and any infraction on them should have the highest priority in order to avoid expensive legal fines!</p>
 
-<h3 id="sending-analytics-requests-before-consent">Sending Analytics Requests Before Consent</h3>
+<p><strong>Disclaimer:</strong> This is not to be considered as legal advice, but my own opinion based on professional experience.</p>
 
-<h2 id="3-seo--️">3. SEO 🔎 🕸️</h2>
+<h3 id="sending-requests-to-third-parties-before-consent">Sending Requests To Third Parties Before Consent</h3>
+<p class="found">Discovered on: All Pages</p>
+
+<p>Okay, this is a big one so lets get into it!</p>
+
+<p><strong>Problem:</strong>
+Third Party resources are being loaded before <strong>before user consent is given</strong>!
+When visiting any of the Raspberry Pi affiliated pages that I’ve inspected, network requests are being sent to Google Analytics / Google Tag Manager on the very first page load. Whilst these are trusted and verified third party sources the danger here is when loading them, especially scripts that run code on your page, you may not have full control over what that code does and user data can be leaked before the user has even provided any consent which could cost your data privacy officer a lot of sleep! There have been instances in the past where the European courts ruled that Google Analytics’s privacy safeguarding measures were invalid and any sites submitting user data were essentially “exporting” user data to a “third country” (the US). Your CMP has an <a href="https://usercentrics.com/knowledge-hub/google-analytics-and-gdpr-compliance-rulings/">article</a> on this very issue</p>
+
+<figure align="center"><img src="./images/gdpr/analytics.png" width="450" height="auto" /><figcaption>Analytics requests in network tab</figcaption></figure>
+
+<p>GDPR dictates that users must provide consent before setting any ‘non-essential’ cookies or collecting user data. Google Analytics does not fall under the essential category. Upon inspection of the <em>network tab</em> it’s apparent how many requests are being sent to Google Analytics and Google Tag Manager. In the <em>applications tab</em> you can see the <code class="language-plaintext highlighter-rouge">_ga</code> cookies that have been set, all before any consent has been submitted.</p>
+
+<figure align="center"><img src="./images/gdpr/cookies.png" width="450" height="auto" /><figcaption>Third Party Cookies in application tab</figcaption></figure>
+
+<p><strong>Solution:</strong>
+The simple answer to this one is to ensure that your requests for third-party resources only takes place after user’s have provided consent. 
+Whilst the reality may be more complicated, it’s usually a lot less painful than this sounds. You already have a cookie-consent banner in place on your page provided by Cookiebot (Usercentrics), so this is a great start!</p>
+
+<p>Your Consent Management Platform (CMP) will typically have provided you with a SDK that gives you access to API tools that allow you to manage user consent. These API’s have a few different methods for letting you manage your third-party scripts based on user consent. I personally have a lot of experience with helping digital publication companies clean up their pages to not send any requests before a signal provided by the user to give consent, and specifically with your CMP, Usercentrics. I will quickly outline the process they recommend, which you can read about in detail on their <a href="https://docs.usercentrics.com/#/direct-implementation-guide?id=assign-a-data-attribute">docs</a></p>
+
+<p>Cookiebot/Usercentrics provides a simple system for deferring loading third-party resource requests by altering the HTML tags that encapsulate the code responsible for triggering those requests. All you need to do is change the <code class="language-plaintext highlighter-rouge">type</code> attribute on a script tag from <code class="language-plaintext highlighter-rouge">type="text/javascript"</code> to <code class="language-plaintext highlighter-rouge">type="text/plain</code> and then include a special attribute that will be picked up by the Cookiebot API <code class="language-plaintext highlighter-rouge">data-usercentrics="name of data processing service here"</code>. The exact names of the services (such as Google Analytics) can be found on your CMP dashboard, under “Settings”, then the section named “Data Processing Services”. Please be careful that the casing and spaces of the service must be exactly the same! So if the service is “Facebook Pixel” then the attribute should look like <code class="language-plaintext highlighter-rouge">data-usercentrics="Facebook Pixel"</code></p>
+
+<p>I’ve provided a simple example of what a script on your page may look like before and after modifications:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Before Modification --&gt;</span>
+<span class="nt">&lt;script
+  </span><span class="na">async</span>
+  <span class="na">type=</span><span class="s">"text/javascript"</span>
+  <span class="na">src=</span><span class="s">"https://www.google-analytics.com/analytics.js"</span>
+<span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="c">&lt;!-- After Modification --&gt;</span>
+<span class="nt">&lt;script
+  </span><span class="na">async</span>
+  <span class="na">type=</span><span class="s">"text/plain"</span>
+  <span class="na">data-usercentrics=</span><span class="s">"Google Analytics"</span>
+  <span class="na">src=</span><span class="s">"https://www.google-analytics.com/analytics.js"</span>
+<span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Now the code responsible for loading these requests will only run <strong>after</strong> a user has provided consent. Nice &amp; easy!</p>
+
+<p><strong>Bonus:</strong> Requests to Google Fonts have also fallen afoul of European GDPR rulings, so it’s advised to self-host your font files and have your page request that resource from a first-party domain on your server.</p>
+
+<h2 id="3-security-">3. Security 🔐</h2>
+
+<p>Pentesting &amp; investigating vulnerabilities is a job with a large scope and takes considerable time &amp; resources, so I wouldn’t say that I’ve been able to give all the sites a thorough investigation but from what I’ve seen you’ve done an amazing job! Considering that Raspberry Pi is an educational charity, I’m sure the safety and privacy of users/students is the first thing on your mind. So well done! The only things I could suggest are very social level, so let’s have a quick look over them:</p>
+
+<h3 id="strict-transport-security-header-is-not-set">Strict Transport Security Header is not set</h3>
+<p class="found">Discovered on:</p>
+<ul class="found">
+<li>https://www.raspberrypi.org/</li>
+<li>https://projects.raspberrypi.org/en/projects</li>
+<li>https://codeclubworld.org/</li>
+<li>https://experience-ai.org/en/</li>
+<li>https://astro-pi.org/</li>
+</ul>
+
+<p><strong>Problem:</strong> 
+The HSTS (Https Strict Transport Security) header is a security feature that tells browsers only to connect to a site over HTTPS once that connection has been established, and never HTTP. This is more secure and prevents Man-In-The-Middle attacks in the circumstance that someone visits your site over HTTP (even if a website has enabled HTTPS), as their initial connection would be unencrypted. There are multiple vectors through which a user may end up making a HTTP connection instead, some of which are explained in great detail on <a href="https://https.cio.gov/hsts/">cio.gov</a>.</p>
+
+<figure align="center"><img src="./images/security/hsts.png" width="450" height="auto" /><figcaption>No Strict Transport Security header in response</figcaption></figure>
+
+<p><strong>Solution:</strong>
+You need to configure your web server to include the Strict-Transport-Security header in all HTTPS responses. A typical value is:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Strict-Transport-Security: max-age<span class="o">=</span>31536000<span class="p">;</span> includeSubDomains<span class="p">;</span> preload
+</code></pre></div></div>
+<p>This header now tells browsers to remember to connect over HTTPS for one-year (31536000 seconds), apply this rule to all subdomains for this site and allow for your site to be submitted to browser’s ‘preloading’ list (this is optional but recommended)</p>
+
+<h2 id="4-seo--️">4. SEO 🔎 🕸️</h2>
 
 <p>For this section I used the <a href="https://crawler.siteone.io/">SiteOne Crawler Report tool</a>, <a href="https://www.screamingfrog.co.uk/seo-spider/">Screaming Frog SEO Spider</a>, Chrome Lighthouse reports as well as manually inspecting the pages.</p>
 
 <p>Overall, the sites scored exceptionally well on SEO, with most achieving perfect 100s in Lighthouse! The issues I found were generally minor, whilst it may seem overly judicious to include them, I decided to nonetheless to demonstrate my attention to detail.</p>
 
-<p style="font-size: 24px; font-weight: bold"> Henry's Score: 9/10 </p>
-
 <h3 id="missing-h1-tag">Missing H1 Tag</h3>
+
 <p class="found">Discovered on: https://projects.raspberrypi.org/en</p>
 
 <p><strong>Problem:</strong><br />
@@ -257,6 +332,7 @@ H1 tags are crucial for signaling the primary topic of a page to search engines.
 Replace the <code class="language-plaintext highlighter-rouge">&lt;p&gt;</code> tag with the class “page-section__title” with an <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> tag. This ensures that the page has a clear, semantically correct main heading, enhancing SEO and accessibility.</p>
 
 <h3 id="multiple-h1-tags">Multiple H1 Tags</h3>
+
 <p class="found">Discovered on: https://codeclubworld.org/</p>
 
 <p><strong>Problem:</strong><br />
@@ -270,7 +346,7 @@ Whilst Google has clarified that having multiple <code class="language-plaintext
 <p><strong>Solution:</strong>
 Ensure the primary heading of each page is enclosed within a single <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> tag, with subsequent headings using the appropriate hierarchical tags (<code class="language-plaintext highlighter-rouge">&lt;h2&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;h3&gt;</code>, etc.) to maintain clear structure.</p>
 
-<p><strong>Bonus:</strong> 
+<p><strong>Bonus:</strong>
 The Screaming Frog SEO Spider crawl revealed that the raspberrypi.org blog articles frequently contain multiple <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> tags per post.</p>
 
 <figure align="center"><img src="./images/seo/blog-h1s.png" width="450" height="auto" /><figcaption>Multiple H1s On Every Page</figcaption></figure>
@@ -280,18 +356,25 @@ The Screaming Frog SEO Spider crawl revealed that the raspberrypi.org blog artic
 <figure align="center"><img src="./images/seo/blog-h1s.gif" width="450" height="auto" /><figcaption>Blog H1s</figcaption></figure>
 
 <h3 id="missing-meta-description">Missing Meta Description</h3>
+
 <p class="found">Discovered on: https://codeclub.org/en</p>
 
-<p><strong>Problem:</strong> 
+<p><strong>Problem:</strong>
 The only description meta tag on this page is the Open Graph tag <code class="language-plaintext highlighter-rouge">og:description</code>, which is used by social media platforms like Facebook and LinkedIn to display page summaries when shared. While necessary, this tag serves a different purpose than the standard <code class="language-plaintext highlighter-rouge">name="description"</code> meta tag, which search engines use for indexing and displaying snippets in search results.</p>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">"We believe in learning through making, and Code Clubs use our free coding projects and resources to offer young people plenty of opportunities to be creative, learn a new skill and connect with others."</span> <span class="na">property=</span><span class="s">"og:description"</span><span class="nt">&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span>
+  <span class="na">content=</span><span class="s">"We believe in learning through making, and Code Clubs use our free coding projects and resources to offer young people plenty of opportunities to be creative, learn a new skill and connect with others."</span>
+  <span class="na">property=</span><span class="s">"og:description"</span>
+<span class="nt">/&gt;</span>
 </code></pre></div></div>
 
-<p><strong>Solution:</strong> 
+<p><strong>Solution:</strong>
 Add a standard meta description tag alongside the Open Graph tag by duplicating it and changing property=”og:description” to name=”description”. For example:</p>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"description"</span> <span class="na">content=</span><span class="s">"We believe in learning through making, and Code Clubs use our free coding projects and resources to offer young people plenty of opportunities to be creative, learn a new skill and connect with others."</span><span class="nt">&gt;</span>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;meta</span>
+  <span class="na">name=</span><span class="s">"description"</span>
+  <span class="na">content=</span><span class="s">"We believe in learning through making, and Code Clubs use our free coding projects and resources to offer young people plenty of opportunities to be creative, learn a new skill and connect with others."</span>
+<span class="nt">/&gt;</span>
 </code></pre></div></div>
 
 <h3 id="non-descriptive-link-texts">Non Descriptive Link Texts</h3>
@@ -307,7 +390,7 @@ Add a standard meta description tag alongside the Open Graph tag by duplicating 
 <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"article-url"</span><span class="nt">&gt;</span>Read more about [Article Title]<span class="nt">&lt;/a&gt;</span>
 </code></pre></div></div>
 
-<h2 id="4-ux-">4. UX 👥</h2>
+<h2 id="5-ux-">5. UX 👥</h2>
 
 <p>WORK IN PROGRESS (Please check again later, I’m still updating this page!)</p>
 
