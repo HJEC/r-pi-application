@@ -313,4 +313,160 @@ Add a standard meta description tag alongside the Open Graph tag by duplicating 
 
 ## 5. UX 👥
 
-WORK IN PROGRESS (Please check again later, I'm still updating this page!)
+### Offer Dark Mode for users
+
+**Problem:** 
+The Raspberry Pi sites do not currently offer an option to users for switching color themes.
+
+A great option to offer users on modern devices is allowing them to select between light & dark color themes for your site. Many users (myself included) prefer dark mode themes as it reduces eye strain with fewer high contrast, bright pages especially when reading at night. Dark themes also tend to save battery on mobile devices, enhances readability and many more benefits.
+
+**Solution:**
+Now whilst this can require some work to implement and get the balance correctly, it's always a welcome benefit that improves comfort and accessibility that makes your site more user-friendly and inclusive. The good news is that a lot of your sites already utilise a color palette that lends well to being modified for a dark theme.
+
+I took the liberty of extracting the color palette from the homepage of [https://www.raspberrypi.org/](https://www.raspberrypi.org/) and generating a CSS palette through [coolors.co](https://coolors.co). 
+
+<ul style="list-style: none; padding: 0;">
+  <li><span class="palette-color" style="background:#474747ff;"></span>outer-space: #474747ff</li>
+  <li><span class="palette-color" style="background:#ffffffff;border:1px solid #ccc;"></span>white: #ffffffff</li>
+  <li><span class="palette-color" style="background:#ca2456ff;"></span>rose-red: #ca2456ff</li>
+  <li><span class="palette-color" style="background:#020202ff;"></span>black: #020202ff</li>
+  <li><span class="palette-color" style="background:#bcbcbdff;"></span>silver: #bcbcbdff</li>
+  <li><span class="palette-color" style="background:#28ba86ff;"></span>mint: #28ba86ff</li>
+  <li><span class="palette-color" style="background:#93866fff;"></span>beaver: #93866fff</li>
+  <li><span class="palette-color" style="background:#f1d752ff;"></span>naples-yellow: #f1d752ff</li>
+  <li><span class="palette-color" style="background:#5155afff;"></span>violet-blue: #5155afff</li>
+  <li><span class="palette-color" style="background:#84f16eff;"></span>screamin-green: #84f16eff</li>
+</ul>
+
+
+
+
+I will detail a simple explanation of how you can create color palettes using semantic tokens that will let you easily swap the theme by changing the value of these tokens.
+First we will start by establishing the CSS palette variables and the light theme (the base):
+
+```css
+:root {
+  /* Palette base */
+  --outer-space: #474747ff;
+  --white: #ffffffff;
+  --rose-red: #ca2456ff;
+  --black: #020202ff;
+  --silver: #bcbcbdff;
+  --mint: #28ba86ff;
+  --beaver: #93866fff;
+  --naples-yellow: #f1d752ff;
+  --violet-blue: #5155afff;
+  --screamin-green: #84f16eff;
+  /* Light Theme (default) */
+  --color-background: var(--white);
+  --color-surface: var(--silver);
+  --color-primary: var(--rose-red);
+  --color-secondary: var(--mint);
+  --color-accent: var(--naples-yellow);
+  --color-info: var(--violet-blue);
+  --color-success: var(--screamin-green);
+  --color-warning: var(--naples-yellow);
+  --color-error: var(--rose-red);
+  --color-text: var(--outer-space);
+  --color-muted: var(--beaver);
+  --color-border: var(--silver);
+}
+```
+Here you can see that we have established a color palette using the colors on your website. Each color is assigned a token, and that css token variable is applied to a set of variables for a light theme. Now we will rearrange how the color variables are applied to the theme variables for the dark theme: 
+```css
+[data-theme="dark"] {
+  --color-background: var(--outer-space);
+  --color-surface: var(--black);
+  --color-primary: var(--mint);
+  --color-secondary: var(--rose-red);
+  --color-accent: var(--violet-blue);
+  --color-info: var(--naples-yellow);
+  --color-success: var(--screamin-green);
+  --color-warning: var(--naples-yellow);
+  --color-error: var(--rose-red);
+  --color-text: var(--white);
+  --color-muted: var(--silver);
+  --color-border: var(--beaver);
+}
+```
+Now we can apply these theme variables to your page elements, such as buttons, text, containers and so on. As an example you can see that for a page background element, the `--color-background` variable in the light theme will use the `--white` variable and in the dark it is `--outer-space`.
+
+You may have noticed this part of the CSS code: `[data-theme="dark"]`. This CSS selector makes the job of switching themes super easy for us! In the HTML document, all we need to do is apply the special data-attribute to an element (usually the `<body/>` or `<html/>`) so when this attribute is applied the CSS rules for the dark theme will kick in! The HTML will look like this:
+
+```html
+<body data-theme="dark">
+  <!-- Your content here -->
+</body>
+```
+
+In order to apply this data-attribute, it can be easily achieved via a button that the user toggles. When the button is toggled it will run the code responsible for applying/removing that data attribute. Here is a demonstration:
+
+```html
+<button id="toggle-theme">Toggle Dark Theme</button>
+
+<script>
+  const btn = document.getElementById('toggle-theme');
+  btn.addEventListener('click', () => {
+    // Toggle the data-theme attribute on <body>
+    if (document.body.getAttribute('data-theme') === 'dark') {
+      document.body.removeAttribute('data-theme');
+    } else {
+      document.body.setAttribute('data-theme', 'dark');
+    }
+  });
+</script>
+```
+
+Voila! You now have a simple dark/light theme mode ready to go! Obviously implementing this will take a lot of careful consideration and UI testing on each of your sites as they vary in palette, use case and audience. 
+
+I also took the liberty of playing around with the source code of the homepage in the dev-tools to demonstrate what a dark-mode would look like. Obviously the logo in the header would need adjusting to display white text instead of black in this circumstance
+
+<figure align="center"><img src="./images/ux/dark-theme.png" width="450" height="auto"><figcaption>Dark Theme Example</figcaption></figure>
+
+
+
+### Youtube embeds overflow on small screens
+<p class="found">Discovered on: https://projects.raspberrypi.org/en/projects/blender-animate-snow-scene</p>
+
+**Tested on:**
+- Google Pixel 8 - Chrome for Android
+- Macbook Air M1 - Chrome, Opera, Firefox, Safari
+
+
+**Problem:** Due to the fixed width attribute on the YouTube embed video iframe element, on smaller screens part of the video window overflows on the X-Axis. This means that some of the controls are unaccessible and part of the video is cropped. This would force the viewer to have to leave the site and watch the video on the YouTube app. I understand that the YouTube embed code comes like this for default as they want to ensure that their videos are displayed at a 16:9 aspect ratio, and will leave any extra CSS responsiveness demands up to site owners.  
+
+<figure align="center"><img src="./images/ux/blender-video.png" width="450" height="auto"><figcaption>Youtube Embed Overflowing</figcaption></figure>
+
+**Solution:** 
+Wrap the iframe in a container and use CSS to maintain the aspect-ratio and also allow resizing. Here is an example of the CSS you could use to fix your embeds:
+
+```css
+@media screen and (max-width: 560px) {
+  .video-container {
+    padding-bottom: 56.25%; // This trick ensures the video container stays in 16:9 aspect ratio. 56.25% of the video width is used to calculate the height.
+    position: relative;
+    height:0;
+    overflow: hidden;
+  }
+  .video-container iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+}
+```
+and wrap your embed with the container like so:
+
+```html 
+<div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/O7gS6nbyyvE" frameborder="0" allowfullscreen=""></iframe>
+</div>
+```
+
+I've provided an example of this below that you can test with the dev-tools mobile view / on actual phone screens.
+
+<div class="video-container">
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/O7gS6nbyyvE" frameborder="0" allowfullscreen=""></iframe>
+</div>

@@ -25,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="/assets/css/style.css?v=f948a7a15144e718477f91796973e198c6ba17db">
+    <link rel="stylesheet" href="/assets/css/style.css?v=af35673aaff038e1a92afc34a0c326842e802084">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
@@ -392,7 +392,153 @@ Add a standard meta description tag alongside the Open Graph tag by duplicating 
 
 <h2 id="5-ux-">5. UX 👥</h2>
 
-<p>WORK IN PROGRESS (Please check again later, I’m still updating this page!)</p>
+<h3 id="offer-dark-mode-for-users">Offer Dark Mode for users</h3>
+
+<p><strong>Problem:</strong> 
+The Raspberry Pi sites do not currently offer an option to users for switching color themes.</p>
+
+<p>A great option to offer users on modern devices is allowing them to select between light &amp; dark color themes for your site. Many users (myself included) prefer dark mode themes as it reduces eye strain with fewer high contrast, bright pages especially when reading at night. Dark themes also tend to save battery on mobile devices, enhances readability and many more benefits.</p>
+
+<p><strong>Solution:</strong>
+Now whilst this can require some work to implement and get the balance correctly, it’s always a welcome benefit that improves comfort and accessibility that makes your site more user-friendly and inclusive. The good news is that a lot of your sites already utilise a color palette that lends well to being modified for a dark theme.</p>
+
+<p>I took the liberty of extracting the color palette from the homepage of <a href="https://www.raspberrypi.org/">https://www.raspberrypi.org/</a> and generating a CSS palette through <a href="https://coolors.co">coolors.co</a>.</p>
+
+<ul style="list-style: none; padding: 0;">
+  <li><span class="palette-color" style="background:#474747ff;"></span>outer-space: #474747ff</li>
+  <li><span class="palette-color" style="background:#ffffffff;border:1px solid #ccc;"></span>white: #ffffffff</li>
+  <li><span class="palette-color" style="background:#ca2456ff;"></span>rose-red: #ca2456ff</li>
+  <li><span class="palette-color" style="background:#020202ff;"></span>black: #020202ff</li>
+  <li><span class="palette-color" style="background:#bcbcbdff;"></span>silver: #bcbcbdff</li>
+  <li><span class="palette-color" style="background:#28ba86ff;"></span>mint: #28ba86ff</li>
+  <li><span class="palette-color" style="background:#93866fff;"></span>beaver: #93866fff</li>
+  <li><span class="palette-color" style="background:#f1d752ff;"></span>naples-yellow: #f1d752ff</li>
+  <li><span class="palette-color" style="background:#5155afff;"></span>violet-blue: #5155afff</li>
+  <li><span class="palette-color" style="background:#84f16eff;"></span>screamin-green: #84f16eff</li>
+</ul>
+
+<p>I will detail a simple explanation of how you can create color palettes using semantic tokens that will let you easily swap the theme by changing the value of these tokens.
+First we will start by establishing the CSS palette variables and the light theme (the base):</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">:root</span> <span class="p">{</span>
+  <span class="c">/* Palette base */</span>
+  <span class="py">--outer-space</span><span class="p">:</span> <span class="m">#474747</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--white</span><span class="p">:</span> <span class="m">#ffffff</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--rose-red</span><span class="p">:</span> <span class="m">#ca2456</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--black</span><span class="p">:</span> <span class="m">#020202</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--silver</span><span class="p">:</span> <span class="m">#bcbcbd</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--mint</span><span class="p">:</span> <span class="m">#28ba86</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--beaver</span><span class="p">:</span> <span class="m">#93866f</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--naples-yellow</span><span class="p">:</span> <span class="m">#f1d752</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--violet-blue</span><span class="p">:</span> <span class="m">#5155af</span><span class="n">ff</span><span class="p">;</span>
+  <span class="py">--screamin-green</span><span class="p">:</span> <span class="m">#84f16e</span><span class="n">ff</span><span class="p">;</span>
+  <span class="c">/* Light Theme (default) */</span>
+  <span class="py">--color-background</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--white</span><span class="p">);</span>
+  <span class="py">--color-surface</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--silver</span><span class="p">);</span>
+  <span class="py">--color-primary</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--rose-red</span><span class="p">);</span>
+  <span class="py">--color-secondary</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--mint</span><span class="p">);</span>
+  <span class="py">--color-accent</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--naples-yellow</span><span class="p">);</span>
+  <span class="py">--color-info</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--violet-blue</span><span class="p">);</span>
+  <span class="py">--color-success</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--screamin-green</span><span class="p">);</span>
+  <span class="py">--color-warning</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--naples-yellow</span><span class="p">);</span>
+  <span class="py">--color-error</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--rose-red</span><span class="p">);</span>
+  <span class="py">--color-text</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--outer-space</span><span class="p">);</span>
+  <span class="py">--color-muted</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--beaver</span><span class="p">);</span>
+  <span class="py">--color-border</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--silver</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Here you can see that we have established a color palette using the colors on your website. Each color is assigned a token, and that css token variable is applied to a set of variables for a light theme. Now we will rearrange how the color variables are applied to the theme variables for the dark theme:</p>
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s1">"dark"</span><span class="o">]</span> <span class="p">{</span>
+  <span class="py">--color-background</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--outer-space</span><span class="p">);</span>
+  <span class="py">--color-surface</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--black</span><span class="p">);</span>
+  <span class="py">--color-primary</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--mint</span><span class="p">);</span>
+  <span class="py">--color-secondary</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--rose-red</span><span class="p">);</span>
+  <span class="py">--color-accent</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--violet-blue</span><span class="p">);</span>
+  <span class="py">--color-info</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--naples-yellow</span><span class="p">);</span>
+  <span class="py">--color-success</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--screamin-green</span><span class="p">);</span>
+  <span class="py">--color-warning</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--naples-yellow</span><span class="p">);</span>
+  <span class="py">--color-error</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--rose-red</span><span class="p">);</span>
+  <span class="py">--color-text</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--white</span><span class="p">);</span>
+  <span class="py">--color-muted</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--silver</span><span class="p">);</span>
+  <span class="py">--color-border</span><span class="p">:</span> <span class="n">var</span><span class="p">(</span><span class="n">--beaver</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Now we can apply these theme variables to your page elements, such as buttons, text, containers and so on. As an example you can see that for a page background element, the <code class="language-plaintext highlighter-rouge">--color-background</code> variable in the light theme will use the <code class="language-plaintext highlighter-rouge">--white</code> variable and in the dark it is <code class="language-plaintext highlighter-rouge">--outer-space</code>.</p>
+
+<p>You may have noticed this part of the CSS code: <code class="language-plaintext highlighter-rouge">[data-theme="dark"]</code>. This CSS selector makes the job of switching themes super easy for us! In the HTML document, all we need to do is apply the special data-attribute to an element (usually the <code class="language-plaintext highlighter-rouge">&lt;body/&gt;</code> or <code class="language-plaintext highlighter-rouge">&lt;html/&gt;</code>) so when this attribute is applied the CSS rules for the dark theme will kick in! The HTML will look like this:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body</span> <span class="na">data-theme=</span><span class="s">"dark"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- Your content here --&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>In order to apply this data-attribute, it can be easily achieved via a button that the user toggles. When the button is toggled it will run the code responsible for applying/removing that data attribute. Here is a demonstration:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"toggle-theme"</span><span class="nt">&gt;</span>Toggle Dark Theme<span class="nt">&lt;/button&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+  <span class="kd">const</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">toggle-theme</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">click</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Toggle the data-theme attribute on </span><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">data-theme</span><span class="dl">'</span><span class="p">)</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">dark</span><span class="dl">'</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">data-theme</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">data-theme</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">dark</span><span class="dl">'</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>Voila! You now have a simple dark/light theme mode ready to go! Obviously implementing this will take a lot of careful consideration and UI testing on each of your sites as they vary in palette, use case and audience.</p>
+
+<p>I also took the liberty of playing around with the source code of the homepage in the dev-tools to demonstrate what a dark-mode would look like. Obviously the logo in the header would need adjusting to display white text instead of black in this circumstance</p>
+
+<figure align="center"><img src="./images/ux/dark-theme.png" width="450" height="auto" /><figcaption>Dark Theme Example</figcaption></figure>
+
+<h3 id="youtube-embeds-overflow-on-small-screens">Youtube embeds overflow on small screens</h3>
+<p class="found">Discovered on: https://projects.raspberrypi.org/en/projects/blender-animate-snow-scene</p>
+
+<p><strong>Tested on:</strong></p>
+<ul>
+  <li>Google Pixel 8 - Chrome for Android</li>
+  <li>Macbook Air M1 - Chrome, Opera, Firefox, Safari</li>
+</ul>
+
+<p><strong>Problem:</strong> Due to the fixed width attribute on the YouTube embed video iframe element, on smaller screens part of the video window overflows on the X-Axis. This means that some of the controls are unaccessible and part of the video is cropped. This would force the viewer to have to leave the site and watch the video on the YouTube app. I understand that the YouTube embed code comes like this for default as they want to ensure that their videos are displayed at a 16:9 aspect ratio, and will leave any extra CSS responsiveness demands up to site owners.</p>
+
+<figure align="center"><img src="./images/ux/blender-video.png" width="450" height="auto" /><figcaption>Youtube Embed Overflowing</figcaption></figure>
+
+<p><strong>Solution:</strong> 
+Wrap the iframe in a container and use CSS to maintain the aspect-ratio and also allow resizing. Here is an example of the CSS you could use to fix your embeds:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">@media</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">560px</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nc">.video-container</span> <span class="p">{</span>
+    <span class="nl">padding-bottom</span><span class="p">:</span> <span class="m">56.25%</span><span class="p">;</span> <span class="err">//</span> <span class="err">This</span> <span class="err">trick</span> <span class="err">ensures</span> <span class="err">the</span> <span class="err">video</span> <span class="err">container</span> <span class="err">stays</span> <span class="err">in</span> <span class="err">16:9</span> <span class="err">aspect</span> <span class="err">ratio.</span> <span class="err">56.25%</span> <span class="err">of</span> <span class="err">the</span> <span class="err">video</span> <span class="err">width</span> <span class="err">is</span> <span class="err">used</span> <span class="err">to</span> <span class="err">calculate</span> <span class="err">the</span> <span class="err">height.</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">relative</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span><span class="m">0</span><span class="p">;</span>
+    <span class="nl">overflow</span><span class="p">:</span> <span class="nb">hidden</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.video-container</span> <span class="nt">iframe</span> <span class="p">{</span>
+    <span class="nl">left</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">top</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="nl">height</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">width</span><span class="p">:</span> <span class="m">100%</span><span class="p">;</span>
+    <span class="nl">position</span><span class="p">:</span> <span class="nb">absolute</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>and wrap your embed with the container like so:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"video-container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;iframe</span> <span class="na">width=</span><span class="s">"560"</span> <span class="na">height=</span><span class="s">"315"</span> <span class="na">src=</span><span class="s">"https://www.youtube.com/embed/O7gS6nbyyvE"</span> <span class="na">frameborder=</span><span class="s">"0"</span> <span class="na">allowfullscreen=</span><span class="s">""</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>I’ve provided an example of this below that you can test with the dev-tools mobile view / on actual phone screens.</p>
+
+<div class="video-container">
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/O7gS6nbyyvE" frameborder="0" allowfullscreen=""></iframe>
+</div>
 
 
     </main>

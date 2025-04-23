@@ -74,7 +74,6 @@ header {
 }
 
 .social-links {
-  // margin-top: -1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -83,4 +82,34 @@ header {
   img {
     filter: none;
   }
+}
+
+
+
+.video-container {
+  text-align: center;
+}
+
+@media screen and (max-width: 560px) {
+  .video-container {
+    padding-bottom: 56.25%;
+    position: relative;
+    height:0;
+    overflow: hidden;
+  }
+  .video-container iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+}
+
+.palette-color {
+  display:inline-block;
+  width:16px;
+  height:16px;
+  margin-right:8px;
+  vertical-align:middle;
 }
