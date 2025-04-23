@@ -470,3 +470,23 @@ I've provided an example of this below that you can test with the dev-tools mobi
 <div class="video-container">
    <iframe width="560" height="315" src="https://www.youtube.com/embed/O7gS6nbyyvE" frameborder="0" allowfullscreen=""></iframe>
 </div>
+
+---
+
+## Finishing Thoughts
+
+Congrats on making it to the end of my presentation! 🥳 
+Thank you so much for reading, I hope you enjoyed it as much as I did putting it together. 
+
+As I've previously stated, my only ambition was to make my application for the software engineer role stand out from the others. The knowledge and skills I have displayed here are only a small fraction of my capabilities, and this is only from a surface level investigation of the frontend, I am also a full stack developer with extensive backend experience!
+
+I'm available at your convenience to discuss any of the issues presented here, the job opportunity or just a general chat about whatever takes your fancy! 
+You can find links to my email and phone contacts as well as my Github and LinkedIn pages in the header and footer of this page. 
+
+
+
+Thank you for visiting!
+I look forward to hearing from a member of the Raspberry Pi team soon (I really, really can't wait! 😅)
+
+Sincerely excited,
+<p class="sign-off-name">Henry Crookes</p>

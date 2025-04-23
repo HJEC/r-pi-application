@@ -18,6 +18,10 @@ header {
   }
 }
 
+footer {
+  padding: 1rem 0;
+  border-top: solid 0.5rem #ed9d26;
+}
 .project-tagline {
   color: black;
   padding-bottom: 0.5rem;
@@ -112,4 +116,11 @@ header {
   height:16px;
   margin-right:8px;
   vertical-align:middle;
+}
+
+.sign-off-name {
+  margin-top: -1rem;
+  color:#ed9d26;
+  font-size: 2rem;
+  font-family: 'Brush Script MT';
 }

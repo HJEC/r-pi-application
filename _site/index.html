@@ -37,7 +37,36 @@
 
 <!-- end custom head snippets -->
 
-  </head>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+    <script type="text/javascript">
+      (function(){
+          emailjs.init({
+            publicKey: "pzTxZs3AlbQSh10CF",
+          });
+      })();
+      
+      
+      fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+      const ipAddress = data.ip;
+      const now = new Date();
+      const localTime = now.toString();
+      emailjs.send("service_w7tbmar", "template_ywnzu7f", {
+        name: "Henry The Web Wizard",
+        message: "Someone visited your application page!",
+        ipAddress,
+        localTime,
+      });
+    })
+    .catch(error => {
+      console.error('Failed to send notifier email:', error);
+    });
+    </script>
+</head>
   <body>
     <a id="skip-to-content" href="#content">Skip to the content.</a>
 
@@ -540,7 +569,41 @@ Wrap the iframe in a container and use CSS to maintain the aspect-ratio and also
    <iframe width="560" height="315" src="https://www.youtube.com/embed/O7gS6nbyyvE" frameborder="0" allowfullscreen=""></iframe>
 </div>
 
+<hr />
+
+<h2 id="finishing-thoughts">Finishing Thoughts</h2>
+
+<p>Congrats on making it to the end of my presentation! 🥳 
+Thank you so much for reading, I hope you enjoyed it as much as I did putting it together.</p>
+
+<p>As I’ve previously stated, my only ambition was to make my application for the software engineer role stand out from the others. The knowledge and skills I have displayed here are only a small fraction of my capabilities, and this is only from a surface level investigation of the frontend, I am also a full stack developer with extensive backend experience!</p>
+
+<p>I’m available at your convenience to discuss any of the issues presented here, the job opportunity or just a general chat about whatever takes your fancy! 
+You can find links to my email and phone contacts as well as my Github and LinkedIn pages in the header and footer of this page.</p>
+
+<p>Thank you for visiting!
+I look forward to hearing from a member of the Raspberry Pi team soon (I really, really can’t wait! 😅)</p>
+
+<p>Sincerely excited,</p>
+<p class="sign-off-name">Henry Crookes</p>
+
 
     </main>
+    <footer>
+      <div class="social-links">
+        <a href="https://github.com/hjec" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=62856&format=png&color=ed9d26" alt="GitHub" style="width: 25px; height: 25px;">
+        </a>
+        <a href="https://www.linkedin.com/in/henry-crookes/" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=98960&format=png&color=ed9d26" alt="LinkedIn" style="width: 25px; height: 25px;">
+        </a>
+        <a href="mailto:henryjecrookes@gmail.com" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=60688&format=png&color=ed9d26" alt="Email" style="width: 25px; height: 25px;">
+        </a>
+        <a href="tel:+447415341349" target="_blank">
+          <img src="https://img.icons8.com/?size=100&id=9730&format=png&color=ed9d26" alt="Phone" style="width: 25px; height: 25px;">
+        </a>
+        </div>
+    </footer>
   </body>
 </html>

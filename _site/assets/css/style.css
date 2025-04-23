@@ -327,6 +327,8 @@ a:hover { text-decoration: underline; }
 header { margin: auto; }
 header .btn { display: none; }
 
+footer { padding: 1rem 0; border-top: solid 0.5rem #ed9d26; }
+
 .project-tagline { color: black; padding-bottom: 0.5rem; margin-bottom: 0rem; }
 
 .main-content a { text-decoration: underline; }
@@ -347,3 +349,5 @@ header .btn { display: none; }
 @media screen and (max-width: 560px) { .video-container { padding-bottom: 56.25%; position: relative; height: 0; overflow: hidden; }
   .video-container iframe { left: 0; top: 0; height: 100%; width: 100%; position: absolute; } }
 .palette-color { display: inline-block; width: 16px; height: 16px; margin-right: 8px; vertical-align: middle; }
+
+.sign-off-name { margin-top: -1rem; color: #ed9d26; font-size: 2rem; font-family: 'Brush Script MT'; }
