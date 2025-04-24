@@ -58,7 +58,7 @@ The following points are based on a surface-level examination and should be view
 
 ## 1. Technical Performance ⚙️
 
-First off, let me just say: Wow! The average Lighthouse scores across most of the sites I reviewed were truly impressive, mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.
+First off, let me just say: Wow! The average Lighthouse scores across the sites I reviewed were truly impressive, mostly in the 95% range! Great job 👏 It took some patience and tenacity, but I did manage to find a few standout issues worth mentioning.
 
 The data I used comes from two sources. First, I ran lab-based audits using Chrome Lighthouse. I'm aware that Lighthouse lab data can sometimes give a skewed view of real-world performance since it simulates conditions in a controlled environment. To balance that, I also analyzed anonymous user experience data from Google's Chrome User Experience Report [(CrUX)](https://developer.chrome.com/docs/crux), which reflects real user metrics collected from millions of Chrome users in the wild.
 
@@ -81,7 +81,7 @@ My research led to me the conclusion that this script is the Raspberry Pi Code E
 
 <figure align="center"><img src="./images/performance/treemap.png" width="550" height="auto"><figcaption>18mb Resource</figcaption></figure>
 
-What I noticed was that the resource is loaded on every page, including the landing page, regardless of a need for the editor or not. On a lot of modern, powerful devices with good internet speeds the loading time for the page may be negligible, but this could really impact the user experience for someone using an older / inexperienced device. Considering that this is a primary website for education it would be a huge shame for any user to be disadvantaged by painfully slow rendering times!
+What I noticed was that the resource is loaded on every page, including the landing page, regardless of a need for the editor or not. On a lot of modern, powerful devices with good internet speeds the loading time for the page may be negligible, but this could really impact the user experience for someone using an older / inexpensive device. Considering that this is a primary website for education it would be a huge shame for any user to be disadvantaged by painfully slow rendering times!
 
 **Solution:**  
 Without full insight into the component's inner workings, I can only offer assumption-based suggestions to improve resource loading, assuming optimizations aren't already in place:
